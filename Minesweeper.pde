@@ -85,9 +85,17 @@ public class MSButton
     
     public void mousePressed () 
     {
-        clicked = true;
-       // if (keyPressed('leftMouse'))
+
+        if (mouseButton==LEFT&&marked==false){
+            clicked = true;
+        }else if(marked==true){
+            marked=false;
+        }else if(clicked==false){
+            marked=true;
+        }
+
         //your code here
+
     }
 
     public void draw () 
