@@ -86,10 +86,11 @@ public class MSButton
     public void mousePressed () 
     {
 
-        if (mouseButton==LEFT&&marked==false){
+        if (mouseButton==LEFT){
             clicked = true;
         }else if(marked==true){
             marked=false;
+            clicked=false;
         }else if(clicked==false){
             marked=true;
         }
@@ -120,7 +121,7 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
-        if(r<NUM_ROWS&&c<NUM_COLS)
+        if(r<NUM_ROWS&&c<NUM_COLS&&r>=0&&c>=0)
             return true;
         return false;
     }
@@ -130,7 +131,7 @@ public class MSButton
         //your code here
         for(int r=row-1; r<=row+1; r++){
             for(int c=col-1; c<=col+1; c++){
-                if(bombs.contains(buttons[r][c]))
+                if(bombs.contains(buttons[r][c])&&buttons[r][c].isValid(r,c))
                     numBombs++;
             }
         }
