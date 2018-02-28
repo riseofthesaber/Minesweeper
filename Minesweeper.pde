@@ -25,13 +25,16 @@ void setup ()
 }
 public void setBombs()
 {
-    int row =(int)(Math.random()*NUM_ROWS);
-    int col =(int)(Math.random()*NUM_COLS);
-    if(!bombs.contains(buttons[row][col])){
-        bombs.add(buttons[row][col]);
-        System.out.println(row+", "+col);
+    int many=10;
+    while(many>0){
+        int row =(int)(Math.random()*NUM_ROWS);
+        int col =(int)(Math.random()*NUM_COLS);
+        if(!bombs.contains(buttons[row][col])){
+            bombs.add(buttons[row][col]);
+           // System.out.println(row+", "+col);
+            many--;
+        }
     }
-    //your code
 }
 
 public void draw ()
@@ -86,13 +89,22 @@ public class MSButton
     public void mousePressed () 
     {
 
-        if (mouseButton==LEFT){
-            clicked = true;
-        }else if(marked==true){
+        
+        clicked = true;
+        if(marked==true){
             marked=false;
             clicked=false;
-        }else if(clicked==false){
+        }
+
+        if(mouseButton==RIGHT){
             marked=true;
+            clicked=false;
+        }else if(bombs.contains(this)){
+
+        }else if(countBombs(r,c)>0){
+            label=""+countBombs(r,c);
+        }else{
+         
         }
 
         //your code here
@@ -135,6 +147,7 @@ public class MSButton
                     numBombs++;
             }
         }
+        System.out.println(numBombs);
         return numBombs;
     }
 }
