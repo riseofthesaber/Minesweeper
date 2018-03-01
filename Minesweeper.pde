@@ -25,7 +25,7 @@ void setup ()
 }
 public void setBombs()
 {
-    int many=10;
+    int many=1;
     while(many>0){
         int row =(int)(Math.random()*NUM_ROWS);
         int col =(int)(Math.random()*NUM_COLS);
@@ -104,7 +104,14 @@ public class MSButton
         }else if(countBombs(r,c)>0){
             label=""+countBombs(r,c);
         }else{
-         
+            if(isValid(r-1,c))
+                buttons[r-1][c].mousePressed();
+            if(isValid(r+1,c))
+                buttons[r+1][c].mousePressed();
+            if(isValid(r,c-1))
+                buttons[r][c-1].mousePressed();
+            if(isValid(r,c+1))
+                buttons[r][c+1].mousePressed();
         }
 
         //your code here
