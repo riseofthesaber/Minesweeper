@@ -1,8 +1,8 @@
 
 
 import de.bezier.guido.*;
-int NUM_ROWS = 10;
-int NUM_COLS = 10;
+int NUM_ROWS = 20;
+int NUM_COLS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs= new ArrayList <MSButton> (); //ArrayList of just the minesweeper buttons that are mined
 
@@ -25,7 +25,7 @@ void setup ()
 }
 public void setBombs()
 {
-    int many=1;
+    int many=50;
     while(many>0){
         int row =(int)(Math.random()*NUM_ROWS);
         int col =(int)(Math.random()*NUM_COLS);
@@ -104,14 +104,18 @@ public class MSButton
         }else if(countBombs(r,c)>0){
             label=""+countBombs(r,c);
         }else{
-            if(isValid(r-1,c))
-                buttons[r-1][c].mousePressed();
-            if(isValid(r+1,c))
+            if(isValid(r-1,c)&&buttons[r-1][c].clicked==false){ 
+                buttons[r-1][c].mousePressed(); 
+            }
+            if(isValid(r+1,c)&&buttons[r+1][c].clicked==false){
                 buttons[r+1][c].mousePressed();
-            if(isValid(r,c-1))
+            }
+            if(isValid(r,c-1)&&buttons[r][c-1].clicked==false){
                 buttons[r][c-1].mousePressed();
-            if(isValid(r,c+1))
+            }
+            if(isValid(r,c+1)&&buttons[r][c+1].clicked==false){
                 buttons[r][c+1].mousePressed();
+            }
         }
 
         //your code here
@@ -150,11 +154,11 @@ public class MSButton
         //your code here
         for(int r=row-1; r<=row+1; r++){
             for(int c=col-1; c<=col+1; c++){
-                if(bombs.contains(buttons[r][c])&&buttons[r][c].isValid(r,c))
+                if(isValid(r,c) && bombs.contains(buttons[r][c]))
                     numBombs++;
             }
         }
-        System.out.println(numBombs);
+        //System.out.print(numBombs);
         return numBombs;
     }
 }
