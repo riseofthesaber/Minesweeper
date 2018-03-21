@@ -51,10 +51,13 @@ public boolean isWon()
 public void displayLosingMessage()
 {
     //your code here
+    text("DED",200,200);
 }
 public void displayWinningMessage()
 {
     //your code here
+    text("A WINNER IS YOU",200,200);
+
 }
 
 public class MSButton
@@ -99,8 +102,9 @@ public class MSButton
         if(mouseButton==RIGHT){
             marked=true;
             clicked=false;
-        }else if(bombs.contains(this)){
 
+        }else if(bombs.contains(this)){
+                displayLosingMessage();
         }else if(countBombs(r,c)>0){
             label=""+countBombs(r,c);
         }else{
