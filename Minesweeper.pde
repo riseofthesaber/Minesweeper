@@ -3,12 +3,13 @@
 import de.bezier.guido.*;
 int NUM_ROWS = 20;
 int NUM_COLS = 20;
+boolean lose = false;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs= new ArrayList <MSButton> (); //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
 {
-    size(400, 400);
+    size(400, 500);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -31,7 +32,7 @@ public void setBombs()
         int col =(int)(Math.random()*NUM_COLS);
         if(!bombs.contains(buttons[row][col])){
             bombs.add(buttons[row][col]);
-           // System.out.println(row+", "+col);
+            System.out.println(row+", "+col);
             many--;
         }
     }
@@ -40,23 +41,34 @@ public void setBombs()
 public void draw ()
 {
     background( 0 );
-    if(isWon())
+    if(lose)
+        displayLosingMessage();
+    else if(isWon())
         displayWinningMessage();
+
 }
 public boolean isWon()
 {
     //your code here
-    return false;
+     for(int r=0; r<NUM_ROWS; r++)
+            for(int c=0; c<NUM_COLS; c++)
+                if(buttons[r][c].isValid(r,c))
+                    if(!buttons[r][c].isMarked()&&!buttons[r][c].isClicked())
+                        return false;
+    return true;
 }
 public void displayLosingMessage()
 {
     //your code here
-    text("DED",200,200);
+    stroke(255, 0, 0);
+    fill(255, 0, 0);
+    text("DED",200,450);
 }
 public void displayWinningMessage()
 {
     //your code here
-    text("A WINNER IS YOU",200,200);
+    fill(255, 0, 255);
+    text("A WINNER IS YOU",200,450);
 
 }
 
@@ -104,7 +116,7 @@ public class MSButton
             clicked=false;
 
         }else if(bombs.contains(this)){
-                displayLosingMessage();
+                lose=true;
         }else if(countBombs(r,c)>0){
             label=""+countBombs(r,c);
         }else{
